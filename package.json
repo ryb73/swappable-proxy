@@ -1,0 +1,30 @@
+{
+  "name": "swappable-proxy",
+  "version": "1.0.0",
+  "description": "Allows an object to substitute its own implementation with another object's implementation.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "chai": "^3.0.0",
+    "lodash": "^3.9.3"
+  },
+  "devDependencies": {
+    "chai": "^3.0.0",
+    "mocha": "^2.2.5"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ryb73/swappable-proxy.git"
+  },
+  "author": "Ryan Biwer",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/ryb73/swappable-proxy/issues"
+  },
+  "homepage": "https://github.com/ryb73/swappable-proxy"
+}
