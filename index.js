@@ -1,32 +1,36 @@
 "use strict";
 
-require("harmony-reflect");
-
-const _ = require("lodash");
-
 function SwappableProxy($target) {
   let target = $target;
   let instance;
 
   function initialize() {
-    let traps = [ "getPrototypeOf", "setPrototypeOf", "isExtensible", "preventExtensions",
-      "getOwnPropertyDescriptor", "defineProperty", "has", "get", "set", "deleteProperty",
-      "enumerate", "ownKeys", "apply", "construct" ];
+    // Only implementing a few of the main traps for now. Once the latest proxy
+    // spec is implemented by v8, this will need to be updated
+    let handler = {
+      has: function(property) {
+        return property in target;
+      },
 
-    let handler = {};
-    traps.forEach(function(trap) {
-      handler[trap] = generateHandlerFunction(trap);
-    });
+      get: function(receiver, property) {
+        return target[property];
+      },
 
-    instance = new Proxy({}, handler);
-  }
+      set: function(receiver, property, value) {
+        target[property] = value;
+        return true;
+      },
 
-  function generateHandlerFunction(trap) {
-    return function() {
-      let args = _.clone(arguments);
-      args[0] = target;
-      return Reflect[trap].apply(Reflect, args);
+      enumerate: function() {
+        let result = [];
+        for(let item in target) {
+          result.push(item);
+        }
+        return result;
+      }
     };
+
+    instance = Proxy.create(handler, {});
   }
 
   function swap(newTarget) {
