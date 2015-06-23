@@ -1,6 +1,6 @@
 {
   "name": "swappable-proxy",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Allows an object to substitute its own implementation with another object's implementation.",
   "main": "index.js",
   "directories": {
