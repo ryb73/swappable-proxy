@@ -26,7 +26,7 @@ function A() {
 module.exports = A;
 ```
 
-##### B.js
+##### B.js:
 ```javascript
 function B() {
   function sayHi() {
@@ -37,7 +37,7 @@ function B() {
 module.exports = B;
 ```
 
-##### index.js
+##### index.js:
 ```javascript
 let obj = new A();
 obj.sayHi(); // My name is A
