@@ -32,6 +32,7 @@ function B() {
   function sayHi() {
     console.log("This is B");
   }
+  this.sayHi = sayHi;
 }
 
 module.exports = B;
