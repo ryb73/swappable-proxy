@@ -90,6 +90,16 @@ describe("SwappableProxy", function() {
     obj.doSwap(A);
     assert.equal(obj.aField, "a");
   });
+
+  it("supports JSON.stringify", function() {
+    let proxiedObj = new A();
+    let nonProxiedA = new A(true);
+    let nonProxiedB = new B(true);
+
+    assert.equal(JSON.stringify(proxiedObj), JSON.stringify(nonProxiedA));
+    proxiedObj.doSwap();
+    assert.equal(JSON.stringify(proxiedObj), JSON.stringify(nonProxiedB));
+  });
 });
 
 function doForIn(obj) {

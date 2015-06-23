@@ -13,6 +13,10 @@ function SwappableProxy($target) {
       },
 
       get: function(receiver, property) {
+        if(property === "toJSON") {
+          return handleToJSON();
+        }
+
         return target[property];
       },
 
@@ -37,6 +41,18 @@ function SwappableProxy($target) {
     target = newTarget;
   }
   this.swap = swap;
+
+  // Special case for toJSON -- if the target didn't define its own toJSON
+  // function, then we want to make sure that JSON doesn't try to JSONify
+  // the proxy object
+  function handleToJSON() {
+    if(target.toJSON)
+      return target.toJSON;
+
+    return function toJSON() {
+      return target;
+    };
+  }
 
   Object.defineProperties(this, {
     instance: {
