@@ -1,7 +1,8 @@
 # swappable-proxy
 
-Example:
+## Example:
 
+### A.js:
 ```javascript
 const SwappableProxy = require("swappable-proxy"),
       B              = require("./b");
@@ -25,6 +26,7 @@ function A() {
 module.exports = A;
 ```
 
+### B.js
 ```javascript
 function B() {
   function sayHi() {
@@ -35,6 +37,7 @@ function B() {
 module.exports = B;
 ```
 
+### index.js
 ```javascript
 let obj = new A();
 obj.sayHi(); // My name is A
