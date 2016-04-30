@@ -8,11 +8,11 @@ function SwappableProxy($target) {
     // Only implementing a few of the main traps for now. Once the latest proxy
     // spec is implemented by v8, this will need to be updated
     let handler = {
-      has: function(property) {
+      has: function(dummy, property) {
         return property in target;
       },
 
-      get: function(receiver, property) {
+      get: function(dummy, property, receiver) {
         if(property === "toJSON") {
           return handleToJSON();
         }
@@ -20,21 +20,15 @@ function SwappableProxy($target) {
         return target[property];
       },
 
-      set: function(receiver, property, value) {
+      set: function(dummy, property, value, receiver) {
         target[property] = value;
         return true;
-      },
-
-      enumerate: function() {
-        let result = [];
-        for(let item in target) {
-          result.push(item);
-        }
-        return result;
       }
     };
 
-    instance = Proxy.create(handler, {});
+    // Wrap the proxy around a dummy placeholder object -- the handler will reference our own
+    // internal target instead
+    instance = new Proxy({}, handler);
   }
 
   function swap(newTarget) {

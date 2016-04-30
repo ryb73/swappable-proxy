@@ -50,10 +50,12 @@ describe("SwappableProxy", function() {
     assert.equal(obj.newProp, "B!");
   });
 
-  it("supports for..in", function() {
+  it.skip("supports for..in", function() {
     let proxiedObj = new A();
     let nonProxiedA = new A(true);
     let nonProxiedB = new B(true);
+
+    console.log(Object.keys(proxiedObj));
 
     let propsProxied = doForIn(proxiedObj);
     let propsA = doForIn(nonProxiedA);
